@@ -45,7 +45,7 @@
     </div>
     <div id="newMeeting" class="row my-2 mx-1 py-2 border rounded d-none">
       <div class="col-12">
-        <form action="">
+        <form action="" id="formNewMeeting">
           <div class="row">
             <div class="col-12">
               <h2>New Meeting</h2>
@@ -54,11 +54,12 @@
           <div class="row g-3">
             <div class="col-12">
               <label for="nameParticipant" class="form-label"> Name of Participant 1</label>
-              <input type="text" name="nameParticipant" id="nameParticipant" class="form-control w-50">
+              <input type="text" name="nameParticipant" id="nameParticipant1" class="form-control w-50">
 
               <label for="nameParticipant" class="form-label"> Name of Participant 2</label>
-              <input type="text" name="nameParticipant" id="nameParticipant" class="form-control w-50">
+              <input type="text" name="nameParticipant" id="nameParticipant2" class="form-control w-50">
             </div>
+
             <div class="col-12">
               <label for="meetingDate" class="form-label">Meeting Date</label>
               <input type="datetime-local" name="meetingDate" id="meetingDate" class="form-control w-50">
@@ -73,8 +74,8 @@
                     </div>
                   </td>
                   <td>
-                    <div id="cancelMeeting">
-                      <button type="button" class="btn btn-secondary btn-danger"  onclick="hideNewMeeting()">Cancel</button>
+                    <div>
+                      <button type="button" class="btn btn-secondary btn-danger"  id="buttonCancel">Cancel</button>
                     </div>
                   </td>
                 </tr>
@@ -91,7 +92,7 @@
         </h2>
       </div>
       <div class="col-auto">
-        <button type="button" class="btn btn-success" onclick="newMeeting()">New Meeting</button>
+        <button type="button" class="btn btn-success" id="buttonNewMeeting">New Meeting</button>
       </div>
     </div>
     <div class="row">
