@@ -17,21 +17,28 @@ function hideNewMeeting() {
 }
 
 function newMeetingValid(nameParticipant1, nameParticipant2, meetingDate) {
+        var validateOk = true;
         if(nameParticipant1.trim().length === 0){
             inputNameParticipant1.classList.add('is-invalid');
-            return false;
-        };
+            validateOk = false;
+        } else {
+            inputNameParticipant1.classList.remove('is-invalid');
+        }
         if(nameParticipant2.trim().length === 0) {
             inputNameParticipant2.classList.add('is-invalid');
-            return false;
-        };
+            validateOk = false;
+        } else {
+            inputNameParticipant2.classList.remove('is-invalid');
+        }
         var timestampMeeting = Date.parse(meetingDate);
         var timestampCurrent = (new Date()).getTime();
         if (isNaN(timestampMeeting) || timestampMeeting < timestampCurrent) {
             inputMeetingDate.classList.add('is-invalid');
-            return false;
+            validateOk = false;
+        } else {
+            inputMeetingDate.classList.remove('is-invalid');
         }
-        return true;
+        return validateOk;
 }
 
 function createNewMeeting(event) {
