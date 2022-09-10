@@ -6,7 +6,41 @@ var inputNameParticipant1 = document.getElementById('nameParticipant1');
 var inputNameParticipant2 = document.getElementById('nameParticipant2');
 var inputMeetingDate = document.getElementById('meetingDate');
 var divMessageError = document.getElementById('messageError');
+var meetingTable = document.getElementById('meetingTable');
 
+
+var listMeetings = [];
+var meetingExample = {
+    date: new Date(),
+    name1: 'Alan Turing',
+    name2: 'Isaac Asimov',
+}
+listMeetings.push(meetingExample);
+
+function updateMeetingTable() {
+    if (listMeetings.length === 0) {
+        meetingTable.innerHTML = '<tr><td colspan="3">None Meeting</td></tr>';
+        return;
+    }
+    for (var i = 0; i < listMeetings.length; i++) {
+        var meeting = listMeetings[i];
+        var line = document.createElement('tr');
+        var cellDate = document.createElement('td');
+        var cellName1 = document.createElement('td');
+        var cellName2 = document.createElement('td');
+        var cellActions = document.createElement('td');
+
+        cellDate.innerText = meeting.date;
+        cellName1.innerText = meeting.name1;
+        cellName2.innerText = meeting.name2;
+        
+        line.appendChild(cellDate);
+        line.appendChild(cellName1);
+        line.appendChild(cellName2);
+        line.appendChild(cellActions);
+        meetingTable.appendChild(line);
+    }
+}
 
 function cleanNewMeeting() {
     inputNameParticipant1.value = '';
@@ -89,3 +123,4 @@ function createNewMeeting(event) {
 buttonNewMeeting.addEventListener('click', showNewMeeting);
 buttonCancel.addEventListener('click', hideNewMeeting);
 formNewMeeting.addEventListener('submit', createNewMeeting);
+window.addEventListener('load', updateMeetingTable);
