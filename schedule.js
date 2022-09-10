@@ -10,18 +10,19 @@ var meetingTable = document.getElementById('meetingTable');
 
 
 var listMeetings = [];
-var meetingExample = {
-    date: new Date(),
-    name1: 'Alan Turing',
-    name2: 'Isaac Asimov',
+
+function deleteMeeting(event) {
+    var position = event.target.getAttribute('data-meeting');
+    listMeetings.splice(position, 1);
+    updateMeetingTable();
 }
-listMeetings.push(meetingExample);
 
 function updateMeetingTable() {
     if (listMeetings.length === 0) {
         meetingTable.innerHTML = '<tr><td colspan="3">None Meeting</td></tr>';
         return;
     }
+    meetingTable.innerHTML = '';
     for (var i = 0; i < listMeetings.length; i++) {
         var meeting = listMeetings[i];
         var line = document.createElement('tr');
@@ -29,10 +30,19 @@ function updateMeetingTable() {
         var cellName1 = document.createElement('td');
         var cellName2 = document.createElement('td');
         var cellActions = document.createElement('td');
+        var buttonDelete = document.createElement('button');
+
+        buttonDelete.setAttribute('data-meeting', i);
+        buttonDelete.classList.add('btn');
+        buttonDelete.classList.add('btn-danger');
+        buttonDelete.classList.add('btn-sm');
+        buttonDelete.addEventListener('click', deleteMeeting);
 
         cellDate.innerText = meeting.date;
         cellName1.innerText = meeting.name1;
         cellName2.innerText = meeting.name2;
+        buttonDelete.innerText = "Remover";
+        cellActions.appendChild(buttonDelete);
         
         line.appendChild(cellDate);
         line.appendChild(cellName1);
@@ -114,6 +124,13 @@ function createNewMeeting(event) {
     var meetingDate = inputMeetingDate.value;
     if(newMeetingValid(nameParticipant1, nameParticipant2, meetingDate)) {
         console.log('Meeting is valid!')
+        listMeetings.push({
+            name1: nameParticipant1,
+            name2: nameParticipant2,
+            date: new Date(meetingDate),
+        });
+        updateMeetingTable();
+        hideNewMeeting();
     } else {
         console.log('Meeting is invalid!')
     }
