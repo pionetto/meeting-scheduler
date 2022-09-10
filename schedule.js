@@ -5,6 +5,7 @@ var formNewMeeting = document.getElementById('formNewMeeting');
 var inputNameParticipant1 = document.getElementById('nameParticipant1');
 var inputNameParticipant2 = document.getElementById('nameParticipant2');
 var inputMeetingDate = document.getElementById('meetingDate');
+var divMessageError = document.getElementById('messageError');
 
 //This function show the meetings list by click the button New Meeting
 function showNewMeeting() {
@@ -18,13 +19,19 @@ function hideNewMeeting() {
 
 function newMeetingValid(nameParticipant1, nameParticipant2, meetingDate) {
         var validateOk = true;
+        var erro = '';
         if(nameParticipant1.trim().length === 0){
+            erro = 'O nome do primeiro participante é obrigatório!';
             inputNameParticipant1.classList.add('is-invalid');
             validateOk = false;
         } else {
             inputNameParticipant1.classList.remove('is-invalid');
         }
         if(nameParticipant2.trim().length === 0) {
+            if(erro.length > 0) {
+                erro += '<br>'
+            }
+            erro += 'O nome do segundo participante é obrigatório!';
             inputNameParticipant2.classList.add('is-invalid');
             validateOk = false;
         } else {
@@ -33,11 +40,22 @@ function newMeetingValid(nameParticipant1, nameParticipant2, meetingDate) {
         var timestampMeeting = Date.parse(meetingDate);
         var timestampCurrent = (new Date()).getTime();
         if (isNaN(timestampMeeting) || timestampMeeting < timestampCurrent) {
+            if(erro.length > 0) {
+                erro += '<br>'
+            }
+            erro += 'A data do evento é obrigatória e deve estar no futuro!';
             inputMeetingDate.classList.add('is-invalid');
             validateOk = false;
         } else {
             inputMeetingDate.classList.remove('is-invalid');
         }
+        if(!validateOk) {
+            divMessageError.innerHTML = erro;
+            divMessageError.classList.remove('d-none');
+        } else {
+            divMessageError.classList.add('d-none');
+        }
+
         return validateOk;
 }
 
