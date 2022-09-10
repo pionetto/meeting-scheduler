@@ -97,6 +97,7 @@ function newMeetingValid(nameParticipant1, nameParticipant2, meetingDate) {
         }
         var timestampMeeting = Date.parse(meetingDate);
         var timestampCurrent = (new Date()).getTime();
+
         if (isNaN(timestampMeeting) || timestampMeeting < timestampCurrent) {
             if(erro.length > 0) {
                 erro += '<br>'
@@ -122,12 +123,23 @@ function createNewMeeting(event) {
     var nameParticipant1 = inputNameParticipant1.value;
     var nameParticipant2 = inputNameParticipant2.value;
     var meetingDate = inputMeetingDate.value;
+
+    var formatDate = new Date();
+    var meetingDate = 
+         formatDate.getUTCFullYear() + "/" +
+         ("0" + (formatDate.getUTCMonth()+1)).slice(-2) + "/" +
+         ("0" + formatDate.getUTCDate()).slice(-2) + " " +
+         ("0" + formatDate.getUTCHours()).slice(-2) + ":" +
+         ("0" + formatDate.getUTCMinutes()).slice(-2) + ":" +
+         ("0" + formatDate.getUTCSeconds()).slice(-2);
+
     if(newMeetingValid(nameParticipant1, nameParticipant2, meetingDate)) {
         console.log('Meeting is valid!')
         listMeetings.push({
             name1: nameParticipant1,
             name2: nameParticipant2,
-            date: new Date(meetingDate),
+            //date: new Date(meetingDate),
+            date: meetingDate,
         });
         updateMeetingTable();
         hideNewMeeting();
