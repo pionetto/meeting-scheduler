@@ -7,6 +7,19 @@ var inputNameParticipant2 = document.getElementById('nameParticipant2');
 var inputMeetingDate = document.getElementById('meetingDate');
 var divMessageError = document.getElementById('messageError');
 
+
+function cleanNewMeeting() {
+    inputNameParticipant1.value = '';
+    inputNameParticipant2.value = '';
+    inputMeetingDate.value = '';
+    inputNameParticipant1.classList.remove('is-invalid');
+    inputNameParticipant2.classList.remove('is-invalid');
+    inputMeetingDate.classList.remove('is-invalid');
+    divMessageError.classList.add('d-none');
+    divMessageError.innerHTML = '';
+
+}
+
 //This function show the meetings list by click the button New Meeting
 function showNewMeeting() {
     newMeeting.classList.remove('d-none');
@@ -15,6 +28,7 @@ function showNewMeeting() {
 //This function hidden the meetings list by click the button Cancel
 function hideNewMeeting() {
     newMeeting.classList.add('d-none');
+    cleanNewMeeting();
 }
 
 function newMeetingValid(nameParticipant1, nameParticipant2, meetingDate) {
